@@ -1,0 +1,267 @@
+<!doctype html>
+<html lang="en" class="loading">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Anshul Panigrahi</title>
+  <meta name="description" content="Anshul Panigrahi — AI engineer building LLM products and tool-using agents. Open to AI engineering internships." />
+  <meta name="theme-color" content="#1d36d6" />
+  <meta property="og:title" content="Anshul Panigrahi" />
+  <meta property="og:description" content="AI engineer. Agent systems. Shipped products." />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%231d36d6'/%3E%3Cpath d='M16 3 L18 14 L29 16 L18 18 L16 29 L14 18 L3 16 L14 14Z' fill='%23efe4cc'/%3E%3C/svg%3E" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wdth,wght@0,62..125,100..900;1,62..125,100..900&family=Big+Shoulders+Display:wght@600;800;900&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <noscript><style>.loader { display: none; } html.loading { overflow: auto; }</style></noscript>
+  <script>
+    // never trap anyone behind the loader if a script fails
+    setTimeout(function () { document.documentElement.classList.remove("loading"); }, 12000);
+  </script>
+</head>
+<body>
+  <svg class="defs" aria-hidden="true" width="0" height="0">
+    <defs>
+      <symbol id="spark" viewBox="-50 -50 100 100">
+        <path d="M0 -50 C3 -12 12 -3 50 0 C12 3 3 12 0 50 C-3 12 -12 3 -50 0 C-12 -3 -3 -12 0 -50Z" />
+      </symbol>
+      <filter id="rough" x="-5%" y="-5%" width="110%" height="110%">
+        <feTurbulence type="fractalNoise" baseFrequency="0.035" numOctaves="3" seed="4" result="n" />
+        <feDisplacementMap in="SourceGraphic" in2="n" scale="5" />
+      </filter>
+    </defs>
+  </svg>
+
+  <!-- loader: real progress, hands off to the city's star -->
+  <div class="loader" aria-hidden="true">
+    <p class="loader-name">Anshul Panigrahi</p>
+    <svg class="loader-star"><use href="#spark" /></svg>
+    <p class="loader-step" data-load-step>Waking up</p>
+    <p class="loader-num"><span data-load-num>000</span></p>
+  </div>
+
+  <div class="grain" aria-hidden="true"></div>
+  <div class="cursor" aria-hidden="true"><svg><use href="#spark" /></svg><span class="cursor-label"></span></div>
+
+  <header class="nav">
+    <a class="nav-mark" href="#city" data-hover="TOP"><svg class="nav-spark"><use href="#spark" /></svg>AP</a>
+    <nav class="nav-links" aria-label="Sections">
+      <a class="nav-link" href="#work" data-hover="WALK"><i>03</i>Work</a>
+      <a class="nav-link" href="#hallway" data-hover="ENTER"><i>04</i>Hallway</a>
+      <a class="nav-link nav-strong" data-resume target="_blank" rel="noopener" data-hover="OPEN">Resume ↗</a>
+    </nav>
+  </header>
+
+  <ol class="rail" aria-hidden="true">
+    <li data-for="city"><b>01</b><span>City</span></li>
+    <li data-for="orbit"><b>02</b><span>Orbit</span></li>
+    <li data-for="work"><b>03</b><span>Work</span></li>
+    <li data-for="hallway"><b>04</b><span>Hallway</span></li>
+    <li data-for="sky"><b>05</b><span>Sky</span></li>
+  </ol>
+
+  <main>
+    <!-- 01 ─ CITY -->
+    <section id="city" class="city" data-section>
+      <div class="city-stage">
+        <canvas class="city-canvas" aria-hidden="true"></canvas>
+        <div class="city-stars" aria-hidden="true"></div>
+        <svg class="city-star" aria-hidden="true"><use href="#spark" /></svg>
+
+        <div class="runway" aria-hidden="true">
+          <div class="walker walker-hero">
+            <svg viewBox="0 0 40 90"><g class="w-body">
+              <circle cx="20" cy="9" r="6" />
+              <path d="M12 18 h16 l2 30 h-20z" />
+              <rect class="w-leg w-leg-a" x="13.5" y="46" width="5.5" height="32" rx="2" />
+              <rect class="w-leg w-leg-b" x="21" y="46" width="5.5" height="32" rx="2" />
+              <rect x="27" y="40" width="9" height="11" rx="1.5" />
+            </g></svg>
+          </div>
+        </div>
+
+        <div class="city-copy">
+          <p class="city-kicker halo">AI engineering <i>/</i> Agent systems <i>/</i> Shipped products</p>
+          <h1 class="name" aria-label="Anshul Panigrahi">
+            <span class="name-a" data-name="0"></span>
+            <span class="name-gap" aria-hidden="true"></span>
+            <span class="name-b" data-name="1"></span>
+          </h1>
+          <p class="city-role halo" data-role></p>
+          <p class="city-hint halo"><span class="hint-line"></span>Scroll to rise</p>
+        </div>
+        <div class="city-flash" aria-hidden="true"></div>
+      </div>
+    </section>
+
+    <!-- 02 ─ ORBIT -->
+    <section id="orbit" class="orbit" data-section>
+      <div class="orbit-stars" aria-hidden="true"></div>
+      <div class="vhs-osd" aria-hidden="true">
+        <span class="osd-play">PLAY ▶</span>
+        <span class="osd-time" data-timecode>SP 0:00:00</span>
+      </div>
+
+      <div class="orbit-grid">
+        <div class="orbit-left">
+          <svg class="wordmark" viewBox="0 0 1000 560" role="img" aria-label="Not of this cloud">
+            <defs>
+              <path id="arcTop" d="M40 250 C 300 120, 640 110, 960 170" />
+              <path id="arcBot" d="M30 470 C 300 330, 640 310, 980 360" />
+              <linearGradient id="vhsFill" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0" stop-color="#7a6dff" />
+                <stop offset=".55" stop-color="#4b3cff" />
+                <stop offset="1" stop-color="#3322e8" />
+              </linearGradient>
+              <filter id="glow" x="-10%" y="-10%" width="120%" height="120%">
+                <feGaussianBlur stdDeviation="9" />
+              </filter>
+              <g id="wm">
+                <text class="wm-top"><textPath href="#arcTop">NOT OF THIS</textPath></text>
+                <text class="wm-bot"><textPath href="#arcBot">CLOUD</textPath></text>
+              </g>
+            </defs>
+            <g class="wm-extrude" data-extrude></g>
+            <use href="#wm" class="wm-glow" filter="url(#glow)" />
+            <use href="#wm" class="wm-ca wm-ca-r" />
+            <use href="#wm" class="wm-ca wm-ca-c" />
+            <use href="#wm" class="wm-face" />
+          </svg>
+
+          <div class="rating reveal">
+            <div class="rating-letter">L</div>
+            <div class="rating-body">
+              <div class="rating-head">LOCAL-FIRST <svg><use href="#spark" /></svg></div>
+              <div class="rating-small">UNDER 100 MS INFERENCE · RUNS WITHOUT<br />ACCOMPANYING CLOUD OR API KEY</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="orbit-right">
+          <div class="planet-wrap" data-hover="DRAG">
+            <canvas class="planet" width="168" height="168" aria-label="A dithered pixel planet. Drag to spin."></canvas>
+          </div>
+        </div>
+      </div>
+
+      <div class="manifesto">
+        <p class="m-label reveal">// problem_first</p>
+        <p class="m-big reveal">Most of what I build starts with <em>friction I run into myself.</em> If something is slow, repetitive or keeps getting in the way, I try to automate it, simplify it, or build a small tool around it.</p>
+        <div class="m-cols">
+          <p class="reveal">I like understanding the workflow first and building around the actual pain point, not picking a technology and looking for somewhere to use it.</p>
+          <p class="reveal">I follow new model releases closely: I read the cards, test them on real tasks, and keep the ones that change how I build. My focus is agentic systems, tool use, orchestration and inference.</p>
+        </div>
+        <p class="m-motto reveal">Problem first.<br /><span>Tool second.</span></p>
+        <p class="now reveal"><span class="rec">● REC</span> NOW BUILDING → <b data-now></b></p>
+      </div>
+      <div class="reentry" aria-hidden="true"><span>RE-ENTRY</span></div>
+    </section>
+
+    <!-- 03 ─ WORK -->
+    <section id="work" class="work" data-section>
+      <div class="work-stage">
+        <div class="work-sky" aria-hidden="true">
+          <svg class="work-sun"><use href="#spark" /></svg>
+        </div>
+        <div class="skyline skyline-far" aria-hidden="true"></div>
+        <div class="skyline skyline-mid" aria-hidden="true"></div>
+
+        <div class="hud" aria-live="polite">
+          <p class="hud-kicker"><span data-hud-index>01</span> / <span data-hud-total>09</span> <i>—</i> <span data-hud-track></span></p>
+          <h2 class="hud-title" data-hud-title></h2>
+          <p class="hud-blurb" data-hud-blurb></p>
+          <p class="hud-why" data-hud-why></p>
+          <p class="hud-stack" data-hud-stack></p>
+          <div class="hud-links" data-hud-links></div>
+        </div>
+
+        <div class="street-track" data-track></div>
+        <div class="street" aria-hidden="true"><div class="street-line"></div></div>
+        <div class="walker walker-street" aria-hidden="true">
+          <svg viewBox="0 0 40 90"><g class="w-body">
+            <circle cx="20" cy="9" r="6" />
+            <path d="M12 18 h16 l2 30 h-20z" />
+            <rect class="w-leg w-leg-a" x="13.5" y="46" width="5.5" height="32" rx="2" />
+            <rect class="w-leg w-leg-b" x="21" y="46" width="5.5" height="32" rx="2" />
+            <rect x="27" y="40" width="9" height="11" rx="1.5" />
+          </g></svg>
+        </div>
+        <p class="work-title" aria-hidden="true">SELECTED<br />WORK</p>
+      </div>
+    </section>
+
+    <!-- 04 ─ HALLWAY: endless arches, haze clears as you walk -->
+    <section id="hallway" class="hallway" data-section>
+      <div class="hall-stage">
+        <canvas class="hall-canvas" aria-hidden="true"></canvas>
+        <div class="hall-haze" aria-hidden="true"></div>
+        <div class="hall-read" aria-live="polite">
+          <p class="hall-kicker"><span data-hall-idx>04</span><i></i><span data-hall-kick>Signals</span></p>
+          <p class="hall-big" data-hall-big>Keep walking.</p>
+          <p class="hall-label" data-hall-label></p>
+          <p class="hall-sub" data-hall-sub></p>
+          <ol class="hall-steps" data-hall-steps></ol>
+        </div>
+        <div class="hall-flash" aria-hidden="true"></div>
+      </div>
+    </section>
+
+    <!-- 05 ─ SKY: riso clouds, the signs are the links -->
+    <section id="sky" class="sky" data-section>
+      <div class="sky-scene">
+        <div class="sky-hatch" aria-hidden="true"></div>
+        <div class="sky-stars" aria-hidden="true"></div>
+        <canvas class="sky-back" aria-hidden="true"></canvas>
+
+        <svg class="street-kit" viewBox="0 0 420 900" preserveAspectRatio="xMidYMax meet">
+          <g class="kit-body" filter="url(#rough)" aria-hidden="true">
+            <rect x="306" y="96" width="16" height="804" fill="#2c42b8" />
+            <rect x="309" y="96" width="4" height="804" fill="#d9cba6" opacity=".7" />
+            <rect x="150" y="150" width="160" height="9" fill="#2c42b8" />
+            <rect x="150" y="262" width="160" height="9" fill="#2c42b8" />
+            <rect x="152" y="152" width="156" height="2" fill="#d9cba6" opacity=".7" />
+            <rect x="70" y="112" width="92" height="262" rx="10" fill="#22339e" stroke="#d9cba6" stroke-width="3" />
+            <rect x="78" y="120" width="76" height="246" rx="6" fill="#1a2780" />
+          </g>
+          <g class="lamps" aria-hidden="true">
+            <circle class="lamp lamp-0" cx="116" cy="164" r="28" />
+            <circle class="lamp lamp-1" cx="116" cy="243" r="28" />
+            <circle class="lamp lamp-2" cx="116" cy="322" r="28" />
+          </g>
+          <g class="signs" data-signs></g>
+          <g class="limit" aria-hidden="true" filter="url(#rough)">
+            <circle cx="314" cy="760" r="64" fill="#efe4cc" />
+            <circle cx="314" cy="760" r="58" fill="none" stroke="#1d36d6" stroke-width="12" />
+            <text x="314" y="778" text-anchor="middle" class="limit-num">100</text>
+            <text x="314" y="800" text-anchor="middle" class="limit-unit">ms</text>
+          </g>
+        </svg>
+
+        <canvas class="sky-front" aria-hidden="true"></canvas>
+
+        <div class="sky-ui">
+          <p class="sky-brand"><svg><use href="#spark" /></svg>Anshul Panigrahi</p>
+          <h2 class="sky-head">Open to AI engineering internships.</h2>
+          <p class="sky-sub">Looking for product teams shipping LLM features, agents and tool use, and the systems that keep them reliable. The resume has the rest.</p>
+          <dl class="sky-grid">
+            <div><dt>Resume</dt><dd><a data-resume target="_blank" rel="noopener" data-hover="OPEN">Anshul_Panigrahi.pdf</a></dd></div>
+            <div><dt>Email</dt><dd><a data-email data-hover="WRITE" data-email-text></a></dd></div>
+            <div><dt>LinkedIn</dt><dd><a data-linkedin target="_blank" rel="noopener" data-hover="CONNECT">anshul-panigrahi22</a></dd></div>
+            <div><dt>GitHub</dt><dd><a data-github target="_blank" rel="noopener" data-hover="BROWSE">burntcookiedough</a></dd></div>
+          </dl>
+          <div class="sky-bar" data-skybar></div>
+        </div>
+
+        <footer class="sky-foot">
+          <span>© 2026 Anshul Panigrahi</span>
+          <span>Hand-built, served from GitHub Pages</span>
+          <a href="#city" data-hover="TOP">Back to the city ↑</a>
+        </footer>
+      </div>
+    </section>
+  </main>
+
+  <script src="projects.js"></script>
+  <script src="main.js"></script>
+</body>
+</html>
