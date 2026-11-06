@@ -56,6 +56,7 @@
     if (reduced || !el.animate) return;
     for (const c of el.children) c.animate([{ opacity: 0, transform: `translate(${dx}px,${dy}px)` }, { opacity: 1, transform: "none" }], { duration: 280, easing: "cubic-bezier(.2,.8,.2,1)" });
   }
+  const ARROW = '<svg class="ico" aria-hidden="true"><use href="#ne"/></svg>';
   const SITE = window.SITE, PROJ = window.PROJECTS, SIG = window.SIGNALS, CRED = window.CREDENTIALS;
   const st = { W: innerWidth, H: innerHeight, sy: scrollY, mx: 0, my: 0, tmx: 0, tmy: 0, t0: Infinity, born: performance.now() };
 
@@ -477,7 +478,7 @@
       a.dataset.hover = "OPEN";
       a.setAttribute("aria-label", `${p.full}. ${p.track}`);
       a.innerHTML = p.more
-        ? `<div class="t-crown crown-flat"><i></i><i></i><i></i></div><div class="t-body"><span>${p.name}<br>MORE</span></div><div class="t-base">GitHub ↗</div>`
+        ? `<div class="t-crown crown-flat"><i></i><i></i><i></i></div><div class="t-body"><span>${p.name}<br>MORE</span></div><div class="t-base">GitHub ${ARROW}</div>`
         : `<div class="t-crown crown-${p.crown}"><i></i><i></i><i></i></div>
            <div class="t-body"><div class="t-windows"></div><div class="t-side"></div><div class="t-lit"></div>
            <div class="t-band"><span class="t-name">${p.name}</span></div><span class="t-num">${String(i + 1).padStart(2, "0")}</span></div>
@@ -550,7 +551,7 @@
       HUD.why.textContent = p.why;
       HUD.stack.innerHTML = p.stack.join("<i>/</i>");
       HUD.links.innerHTML = p.links.length
-        ? p.links.map((l) => `<a href="${l.href}" target="_blank" rel="noopener" data-hover="OPEN">${l.label} ↗</a>`).join("")
+        ? p.links.map((l) => `<a href="${l.href}" target="_blank" rel="noopener" data-hover="OPEN">${l.label} ${ARROW}</a>`).join("")
         : `<span>${p.note || "Private"}</span><a href="${linkFor(p)}" data-hover="ASK">Request access →</a>`;
       swapIn(hud, -10, 0);
     }
@@ -704,17 +705,17 @@
         if (zb - cam.z > NEAR) wallMinusDoor(zb, col(C.reveal, zb - cam.z));
         if (zf - cam.z > NEAR) {
           wallMinusDoor(zf, col(C.face, zf - cam.z));
-          if (k >= 1 && k <= items.length) engrave(items[k - 1].big, zf, 1.05);
+          if (k >= 1 && k <= items.length && finePointer) engrave(items[k - 1].big, zf, 1.05);
           else if (k === 0) engrave("SIGNALS", zf, 0.9);
         }
       }
       ctx.fillStyle = vignette; ctx.fillRect(0, 0, W, H);
       ctx.setTransform(1, 0, 0, 1, 0, 0);
-      if (scale >= BASE * 0.99) {
+      if (scale >= BASE * 0.99 && finePointer) {
         ctx.globalCompositeOperation = "destination-out";
         ctx.fillStyle = noise; ctx.fillRect(0, 0, cv.width, cv.height);
         ctx.globalCompositeOperation = "source-over";
-      } else if ("filter" in ctx) {
+      } else if (scale < BASE * 0.99 && "filter" in ctx) {
         // soften the small frame before CSS scales it up: haze instead of blocks
         if (soft.width !== cv.width || soft.height !== cv.height) { soft.width = cv.width; soft.height = cv.height; }
         sctx.clearRect(0, 0, soft.width, soft.height);
@@ -905,7 +906,9 @@
   // ───────────────────────── rail + nav tone ─────────────────────────
   function makeRail() {
     const items = $$(".rail li");
-    let on = "", tone = "";
+    const themeMeta = $("[data-theme-color]");
+    const THEME = { city: "#1d36d6", orbit: "#030308", work: "#1d36d6", hallway: "#e9ebf6", sky: "#1d36d6" };
+    let on = "", tone = "", theme = "";
     return {
       tick() {
         const y = st.sy, mid = y + st.H * 0.5;
@@ -914,6 +917,11 @@
         const hall = M.hallway, sky = M.sky;
         const t = (y + 60 >= hall.top && y + 60 < hall.top + hall.h) || (y + 60 >= sky.top && y < sky.top + st.H * 0.22) ? "dark" : "light";
         if (t !== tone) { tone = t; root.dataset.tone = t; }
+        const top = IDS.slice().reverse().find((k) => M[k].top <= y + 2) || "city";
+        let c = THEME[top];
+        if (top === "city" && y > M.city.top + (M.city.h - st.H) * 0.7) c = "#05061a";
+        if (top === "sky" && y + st.H >= root.scrollHeight - 4) c = "#0a1466";
+        if (c !== theme) { theme = c; themeMeta.setAttribute("content", c); }
         if (id === on) return;
         on = id;
         items.forEach((li) => li.classList.toggle("on", li.dataset.for === id));
