@@ -24,6 +24,9 @@
 
 *, *::before, *::after { box-sizing: border-box; }
 html { -webkit-text-size-adjust: 100%; }
+/* hide the scrollbar everywhere; scrolling itself is unchanged */
+html, body { scrollbar-width: none; -ms-overflow-style: none; }
+html::-webkit-scrollbar, body::-webkit-scrollbar { display: none; width: 0; height: 0; }
 @media (pointer: coarse) { html { scroll-snap-type: y proximity; } }
 .snap { position: absolute; left: 0; width: 1px; height: 1px; scroll-snap-align: start; pointer-events: none; }
 html, body { margin: 0; background: var(--cobalt); color: var(--cream); }
