@@ -130,10 +130,66 @@ window.PROJECTS = [
 ];
 
 window.SIGNALS = [
-  { big: "03", label: "Published patents", sub: "Medication verification · cognitive-load scheduling · secure sensing" },
+  { big: "03", label: "Published patents", docs: true, sub: "Medication verification · cognitive-load scheduling · zero-trust enclave" },
   { big: "WIN", label: "IEEE CS Hackathon 2025", sub: "Also a Yantra Central Hackathon finalist" },
   { big: "26,419", label: "Images · Brandworks", sub: "AI/ML intern: built a 9-stage data pipeline and trained YOLOv8s across 8 categories" },
   { big: "11★", label: "Stars on Eve", sub: "A shipped desktop AI product, released and maintained in the open" },
 ];
 
 window.CREDENTIALS = ["IBM Agentic AI", "NVIDIA DLI Deep Learning", "Oracle OCI AI Foundations"];
+
+// Patent filings shown as a paper stack in the hallway. A filing without `pages`
+// shows as a blank sheet until its document is added (run the render script, set pages).
+window.PATENTS = [
+  {
+    title: "Medication dispenser with on-device user authentication and medication verification",
+    short: "Medication verification",
+    number: "IN202641027860 A1",
+    application: "202641027860",
+    filed: "10.03.2026",
+    published: "20.03.2026",
+    journal: "12/2026",
+    office: "Intellectual Property Office, India",
+    applicant: "Vellore Institute of Technology",
+    inventors: ["Chemmalar Selvi G", "Anshul Panigrahi", "Parth Surendra Sharma"],
+    plain: "A pill dispenser that recognises the patient's face, releases only their dose, then checks the pill with an on-device classifier before it is taken. Nothing leaves the device.",
+    facts: ["627 KB INT8 MobileNetV2", "2.97 ms inference on CPU", "Face to verified dose in under 5 s on a Raspberry Pi 4"],
+    dir: "patents/01",
+    pdf: "patents/01/IN202641027860A1.pdf",
+    pages: 30,
+  },
+  {
+    title: "Cognitive load-aware distributed task scheduling using hardware-bound processing control and predictive task migration",
+    short: "Cognitive-load scheduling",
+    number: "IN202641088096 A1",
+    application: "202641088096",
+    filed: "19.07.2026",
+    published: "24.07.2026",
+    journal: "30/2026",
+    office: "Intellectual Property Office, India",
+    applicant: "Vellore Institute of Technology",
+    inventors: ["Senthil Kumar T", "Shagun Khandelwal", "Sarthak Singhal", "Advika Pundir", "Anshul Panigrahi"],
+    plain: "A scheduler that reads how hard you are concentrating from keyboard, mouse and app-switching patterns, then holds back, slows or moves disruptive work to other machines until you surface.",
+    facts: ["Cognitive Load Score with no wearables or sensors", "Defers, throttles or migrates tasks across nodes", "Predicts focus breaches and moves work ahead of time"],
+    dir: "patents/02",
+    pdf: "patents/02/IN202641088096A1.pdf",
+    pages: 25,
+  },
+  {
+    title: "Zero-trust physical enclave security using continuous biometric entropy and RF-based perimeter monitoring",
+    short: "Zero-trust enclave",
+    number: "IN202641067209 A1",
+    application: "202641067209",
+    filed: "29.05.2026",
+    published: "05.06.2026",
+    journal: "23/2026",
+    office: "Intellectual Property Office, India",
+    applicant: "Vellore Institute of Technology",
+    inventors: ["Thanga Mariappan L", "Anshul Panigrahi", "Aryan Saxena", "Yash Bajpai"],
+    plain: "A workstation that stays unlocked only while a live pulse is present and no unknown radio is nearby. Lose either, and the session keys are destroyed on the spot.",
+    facts: ["Session keys from live PPG pulse entropy, SHA-3", "Keys wiped when presence drops or an RF emitter appears", "Screen falls to static the moment a session ends"],
+    dir: "patents/03",
+    pdf: "patents/03/IN202641067209A1.pdf",
+    pages: 16,
+  },
+];

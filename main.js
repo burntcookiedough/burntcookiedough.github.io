@@ -27,6 +27,7 @@
   const finePointer = matchMedia("(hover: hover) and (pointer: fine)").matches;
   // weaker devices get a lighter render path; the look stays the same
   const LOW = (navigator.hardwareConcurrency || 8) <= 4 || (navigator.deviceMemory || 8) <= 4;
+  document.documentElement.classList.toggle("low", LOW);
   const DPR = Math.min(devicePixelRatio || 1, LOW ? 1 : finePointer ? 1.5 : 1.25);
   const TAU = Math.PI * 2;
   const SVGNS = "http://www.w3.org/2000/svg";
@@ -140,7 +141,7 @@
     const maxY = () => root.scrollHeight - innerHeight;
     if (smoothWheel) {
       addEventListener("wheel", (e) => {
-        if (e.ctrlKey || root.classList.contains("loading")) return;
+        if (e.ctrlKey || root.classList.contains("loading") || root.classList.contains("dossier-open")) return;
         e.preventDefault();
         let d = e.deltaY * (e.deltaMode === 1 ? 32 : e.deltaMode === 2 ? innerHeight : 1);
         d = Math.sign(d) * Math.min(Math.abs(d), 150) * 0.9;
@@ -176,6 +177,8 @@
     let lastT = performance.now();
     function tick(now) {
       const dt = Math.min(64, now - lastT); lastT = now;
+      // the patent reader is open: the page underneath holds still
+      if (root.classList.contains("dossier-open")) { active = false; settled = true; from = scrollY; return; }
       if (active) {
         cur += (target - cur) * (1 - Math.pow(0.88, dt / 16.67));
         if (Math.abs(target - cur) < 0.6) { cur = target; active = false; lastInput = now; }
@@ -615,9 +618,10 @@
     const R = {
       idx: $("[data-hall-idx]", read), kick: $("[data-hall-kick]", read), big: $("[data-hall-big]", read),
       label: $("[data-hall-label]", read), sub: $("[data-hall-sub]", read), steps: $("[data-hall-steps]", read),
+      docs: $("[data-docs]", read),
     };
     const items = [
-      ...SIG.map((s) => ({ big: s.big, label: s.label, sub: s.sub })),
+      ...SIG.map((s) => ({ big: s.big, label: s.label, sub: s.sub, docs: !!s.docs })),
       { big: String(CRED.length).padStart(2, "0"), label: "Certifications", sub: CRED.join(" · ") },
     ];
     const intro = { big: "Keep walking.", label: "", sub: "Patents, a hackathon, an internship and a shipped product, one room at a time." };
@@ -749,6 +753,7 @@
       R.big.textContent = it.big;
       R.label.textContent = it.label;
       R.sub.textContent = it.sub;
+      if (R.docs.childElementCount) R.docs.hidden = !it.docs;
       stepEls.forEach((li, k) => li.classList.toggle("on", k < i));
       swapIn(read, 0, 8);
     }
@@ -771,6 +776,137 @@
     }
     const snaps = () => [0, ...items.map((_, i) => roomP(i + 1))].map((p) => M.hallway.top + p * (M.hallway.h - st.H));
     return { resize, tick, snaps };
+  }
+
+  // ───────────────────────── patents ─────────────────────────
+  // The filings sit as a paper stack in the patents room. A sheet lifts off the
+  // stack into a reader; closing drops it back where it came from.
+  function makeDossier() {
+    const PAT = window.PATENTS || [];
+    const stack = $("[data-docs]"), box = $("[data-dossier]");
+    if (!stack || !box || !PAT.length) return;
+    const pad = (n) => String(n).padStart(2, "0");
+    const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" })[c]);
+    stack.innerHTML = `<div class="docs-stack">${PAT.map((p, i) => p.pages
+      ? `<button type="button" class="sheet live" data-sheet="${i}" data-hover="READ" aria-label="Read patent ${pad(i + 1)}: ${esc(p.short)}"><span class="sheet-face" style="background-image:url('${p.dir}/cover.webp')"></span></button>`
+      : `<span class="sheet" aria-hidden="true"><span class="sheet-face"><span class="sheet-tag">${esc(p.short)}</span><span class="sheet-stamp">COPY SOON</span></span></span>`).join("")}</div>
+      <p class="docs-cap"><i></i>${finePointer ? "Open the filings" : "Tap a sheet to read"}</p>`;
+
+    const R = {
+      body: $(".dossier-body", box), meta: $(".dossier-meta", box), veil: $(".dossier-veil", box),
+      idx: $("[data-d-idx]", box), title: $("[data-d-title]", box), plain: $("[data-d-plain]", box),
+      facts: $("[data-d-facts]", box), record: $("[data-d-record]", box), pdf: $("[data-d-pdf]", box),
+      sheet: $("[data-d-sheet]", box), paper: $(".dossier-paper", box), page: $("[data-d-page]", box),
+      count: $("[data-d-count]", box), prev: $("[data-d-prev]", box), next: $("[data-d-next]", box),
+      ticks: $("[data-d-ticks]", box), x: $(".dossier-x", box),
+    };
+    R.paper.dataset.hover = "TURN";
+    let pat = null, pg = 1, from = null, ticks = [], closing = false;
+    const src = (p, n) => `${p.dir}/p${pad(n)}.webp`;
+    const ready = (url) => { const im = new Image(); im.decoding = "async"; im.src = url; return im.decode ? im.decode().catch(() => {}) : Promise.resolve(); };
+    // the first page is fetched as soon as you reach for the stack
+    const warm = () => PAT.forEach((p) => p.pages && ready(src(p, 1)));
+    stack.addEventListener("pointerenter", warm, { once: true });
+    stack.addEventListener("focusin", warm, { once: true });
+    stack.addEventListener("touchstart", warm, { once: true, passive: true });
+
+    function setPage(n, dir) {
+      n = clamp(n, 1, pat.pages);
+      if (n === pg) return;
+      pg = n;
+      R.count.textContent = `${pad(n)} / ${pad(pat.pages)}`;
+      R.prev.disabled = n === 1; R.next.disabled = n === pat.pages;
+      ticks.forEach((t, k) => t.classList.toggle("on", k < n));
+      const url = src(pat, n);
+      const swap = () => {
+        if (pg !== n) return;
+        R.page.src = url; R.page.alt = `${pat.title}, page ${n} of ${pat.pages}`;
+        if (dir && !reduced && R.page.animate) R.page.animate([{ opacity: 0, transform: `translateX(${dir * 22}px)` }, { opacity: 1, transform: "none" }], { duration: 320, easing: "cubic-bezier(.2,.8,.2,1)" });
+      };
+      dir ? ready(url).then(swap) : swap();
+      if (n < pat.pages) ready(src(pat, n + 1));
+    }
+    const flyFrom = (el) => {
+      const a = el.getBoundingClientRect(), b = R.paper.getBoundingClientRect();
+      return `translate(${a.left - b.left}px, ${a.top - b.top}px) scale(${a.width / b.width}) rotate(-5deg)`;
+    };
+    function open(i, el) {
+      if (closing) return;
+      pat = PAT[i]; from = el;
+      R.idx.textContent = `Patent ${pad(i + 1)} of ${pad(PAT.length)}`;
+      R.title.textContent = pat.title;
+      R.plain.textContent = pat.plain || "";
+      R.facts.innerHTML = (pat.facts || []).map((f) => `<li>${esc(f)}</li>`).join("");
+      R.record.innerHTML = [
+        ["Number", pat.number], ["Filed", pat.filed], ["Published", pat.published && `${pat.published}, journal ${pat.journal}`],
+        ["Office", pat.office], ["Applicant", pat.applicant], ["Inventors", (pat.inventors || []).join(", ")],
+      ].filter((r) => r[1]).map(([k, v]) => `<dt>${k}</dt><dd>${esc(v)}</dd>`).join("");
+      R.pdf.href = pat.pdf;
+      R.ticks.innerHTML = "<li></li>".repeat(pat.pages);
+      ticks = [...R.ticks.children];
+      pg = 0; setPage(1, 0);
+      box.hidden = false; R.body.scrollTop = 0;
+      root.classList.add("dossier-open");
+      R.x.focus({ preventScroll: true });
+      if (reduced || !box.animate) return;
+      const ease = "cubic-bezier(.2,.9,.25,1)";
+      R.veil.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 360, easing: "ease-out" });
+      R.sheet.style.transformOrigin = "0 0";
+      if (el) R.sheet.animate([{ transform: flyFrom(el) }, { transform: "none" }], { duration: 640, easing: ease });
+      [...R.meta.children, R.x].forEach((c, k) => c.animate([{ opacity: 0, transform: "translateY(14px)" }, { opacity: 1, transform: "none" }], { duration: 480, delay: 140 + k * 45, easing: ease, fill: "backwards" }));
+    }
+    function close() {
+      if (box.hidden || closing) return;
+      const done = () => { closing = false; box.hidden = true; root.classList.remove("dossier-open"); if (from) from.focus({ preventScroll: true }); };
+      if (reduced || !box.animate) return done();
+      closing = true;
+      const back = from && from.getBoundingClientRect().width ? flyFrom(from) : "translateY(24px) scale(.96)";
+      const anims = [
+        R.sheet.animate([{ transform: "none" }, { transform: back, opacity: from ? 1 : 0 }], { duration: 420, easing: "cubic-bezier(.55,0,.25,1)", fill: "forwards" }),
+        R.veil.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 380, delay: 60, fill: "forwards" }),
+        ...[...R.meta.children, R.x].map((c) => c.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 200, fill: "forwards" })),
+      ];
+      Promise.all(anims.map((a) => a.finished)).then(() => { done(); anims.forEach((a) => a.cancel()); });
+    }
+
+    stack.addEventListener("click", (e) => {
+      const b = e.target.closest(".sheet.live");
+      if (b) open(+b.dataset.sheet, b);
+    });
+    box.addEventListener("click", (e) => { if (e.target === R.body || e.target.closest("[data-dossier-close]")) close(); });
+    R.prev.addEventListener("click", () => setPage(pg - 1, -1));
+    R.next.addEventListener("click", () => setPage(pg + 1, 1));
+    R.ticks.addEventListener("click", (e) => { const k = ticks.indexOf(e.target); if (k >= 0) setPage(k + 1, k + 1 > pg ? 1 : -1); });
+    // turn pages by tapping either half of the sheet, or by swiping
+    let sx = null, swiped = false;
+    R.paper.addEventListener("pointerdown", (e) => { sx = e.clientX; swiped = false; });
+    R.paper.addEventListener("pointerup", (e) => {
+      if (sx === null) return;
+      const dx = e.clientX - sx; sx = null;
+      if (Math.abs(dx) > 45) { swiped = true; setPage(pg + (dx < 0 ? 1 : -1), dx < 0 ? 1 : -1); }
+    });
+    R.paper.addEventListener("click", (e) => {
+      if (swiped) return;
+      const r = R.paper.getBoundingClientRect(), d = e.clientX - r.left > r.width / 2 ? 1 : -1;
+      setPage(pg + d, d);
+    });
+    // the page underneath stays put: wheel and touch only scroll the reader itself
+    const stuck = () => R.body.scrollHeight <= R.body.clientHeight + 1;
+    box.addEventListener("wheel", (e) => { e.preventDefault(); if (!stuck()) R.body.scrollTop += e.deltaY * (e.deltaMode === 1 ? 32 : 1); }, { passive: false });
+    box.addEventListener("touchmove", (e) => { if (stuck()) e.preventDefault(); }, { passive: false });
+    addEventListener("keydown", (e) => {
+      if (box.hidden) return;
+      const typing = e.target.closest && e.target.closest("a, button");
+      if ([" ", "Home", "End", "ArrowUp", "ArrowDown"].includes(e.key) && !(typing && e.key === " ")) e.preventDefault();
+      if (e.key === "Escape") close();
+      else if (e.key === "ArrowRight" || e.key === "PageDown") { e.preventDefault(); setPage(pg + 1, 1); }
+      else if (e.key === "ArrowLeft" || e.key === "PageUp") { e.preventDefault(); setPage(pg - 1, -1); }
+      else if (e.key === "Tab") {
+        const f = [...box.querySelectorAll("a[href], button:not(:disabled)")];
+        const k = f.indexOf(document.activeElement);
+        if (e.shiftKey ? k <= 0 : k === f.length - 1) { e.preventDefault(); f[e.shiftKey ? f.length - 1 : 0].focus(); }
+      }
+    });
   }
 
   // ───────────────────────── 05 SKY ─────────────────────────
@@ -953,6 +1089,7 @@
   async function boot() {
     scrollTo(0, 0);
     fillContent();
+    makeDossier();
     measure();
     const scroller = makeScroller();
     const cursor = makeCursor();

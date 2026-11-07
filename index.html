@@ -12,7 +12,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wdth,wght@0,62..125,100..900;1,62..125,100..900&family=Big+Shoulders+Display:wght@600;800;900&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="style.css?v=6" />
+  <link rel="stylesheet" href="style.css?v=8" />
   <noscript><style>.loader { display: none; } html.loading { overflow: auto; }</style></noscript>
   <script>
     // never trap anyone behind the loader if a script fails
@@ -199,7 +199,10 @@
         <div class="hall-haze" aria-hidden="true"></div>
         <div class="hall-read" aria-live="polite">
           <p class="hall-kicker"><span data-hall-idx>04</span><i></i><span data-hall-kick>Signals</span></p>
-          <p class="hall-big" data-hall-big>Keep walking.</p>
+          <div class="hall-row">
+            <p class="hall-big" data-hall-big>Keep walking.</p>
+            <div class="docs" data-docs hidden></div>
+          </div>
           <p class="hall-label" data-hall-label></p>
           <p class="hall-sub" data-hall-sub></p>
           <ol class="hall-steps" data-hall-steps></ol>
@@ -263,7 +266,34 @@
     </section>
   </main>
 
-  <script src="projects.js?v=6"></script>
-  <script src="main.js?v=6"></script>
+  <!-- patent viewer: a sheet lifted off the hallway stack -->
+  <div class="dossier" data-dossier role="dialog" aria-modal="true" aria-labelledby="dossier-title" hidden>
+    <div class="dossier-veil" data-dossier-close></div>
+    <div class="dossier-body">
+      <header class="dossier-meta">
+        <p class="dossier-kicker"><span data-d-idx>Patent 01</span><i></i><span>Published application</span></p>
+        <h2 class="dossier-title" id="dossier-title" data-d-title></h2>
+        <p class="dossier-plain" data-d-plain></p>
+        <ul class="dossier-facts" data-d-facts></ul>
+        <dl class="dossier-record" data-d-record></dl>
+        <a class="dossier-orig" data-d-pdf target="_blank" rel="noopener" data-hover="OPEN">Open the original PDF <svg class="ico" aria-hidden="true"><use href="#ne"/></svg></a>
+      </header>
+      <figure class="dossier-sheet" data-d-sheet>
+        <span class="reg reg-tl" aria-hidden="true"></span><span class="reg reg-tr" aria-hidden="true"></span>
+        <span class="reg reg-bl" aria-hidden="true"></span><span class="reg reg-br" aria-hidden="true"></span>
+        <div class="dossier-paper"><img data-d-page alt="" decoding="async" /></div>
+        <figcaption class="dossier-nav">
+          <button type="button" class="d-btn" data-d-prev aria-label="Previous page"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M10 3 5 8l5 5" /></svg></button>
+          <span class="d-count" data-d-count aria-live="polite">01 / 30</span>
+          <button type="button" class="d-btn" data-d-next aria-label="Next page"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M6 3l5 5-5 5" /></svg></button>
+        </figcaption>
+        <ol class="d-ticks" data-d-ticks aria-hidden="true"></ol>
+      </figure>
+      <button type="button" class="dossier-x" data-dossier-close aria-label="Close" data-hover="CLOSE"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3.5 3.5l9 9M12.5 3.5l-9 9" /></svg></button>
+    </div>
+  </div>
+
+  <script src="projects.js?v=8"></script>
+  <script src="main.js?v=8"></script>
 </body>
 </html>
