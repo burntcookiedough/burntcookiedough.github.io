@@ -526,6 +526,9 @@ html[data-tone="dark"] .rail::before { background: rgba(10, 20, 102, .35); }
   /* shorter flight and no near-black strip between orbit and the street */
   .city { height: 255vh; }
   .reentry { height: 24vh; background: linear-gradient(var(--void) 0%, #0d1660 40%, var(--deep) 75%, var(--cobalt) 100%); }
+  /* out of the hallway's white-out straight into the sky: a short pale band, not half a blank screen */
+  .sky { background: linear-gradient(var(--pale) 0, #8fa1ec 40px, #3552dc 85px, var(--cobalt) 130px, #2140d8 70%, #4762e0 100%); }
+  .sky-scene { padding-top: calc(130px + 3vh); }
 }
 
 @media (prefers-reduced-motion: reduce) {

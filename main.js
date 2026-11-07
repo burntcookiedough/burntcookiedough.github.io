@@ -759,6 +759,9 @@
     }
     // resting spot for room k: just through the previous doorway, next arch ahead
     const roomP = (k) => (k === 0 ? 0 : ((k - 1) * SP + 1.2 + 3.2) / LEN);
+    // the white-out at the end: [flash starts, last room starts fading, gone]. On a
+    // phone it comes late and fast, so the sky follows the last room without a blank screen.
+    const OUT = finePointer ? [0.9, 0.92, 0.98] : [0.95, 0.955, 1];
     function tick() {
       const { p, visible } = pin("hallway");
       if (!visible) return;
@@ -770,8 +773,8 @@
       const key = `${cam.x.toFixed(3)}|${cam.z.toFixed(3)}|${scale}`;
       if (key !== lastKey) { lastKey = key; render(); }
       setVar(stage, "--haze", (0.12 + 0.88 * (1 - focus)).toFixed(3));
-      setVar(stage, "--read-o", (smooth(roomP(1) * 0.5, roomP(1), p) * (1 - smooth(0.92, 0.98, p))).toFixed(3));
-      setVar(stage, "--hflash", smooth(0.9, 1, p).toFixed(3));
+      setVar(stage, "--read-o", (smooth(roomP(1) * 0.5, roomP(1), p) * (1 - smooth(OUT[1], OUT[2], p))).toFixed(3));
+      setVar(stage, "--hflash", smooth(OUT[0], 1, p).toFixed(3));
       show(cam.z < 0 ? 0 : Math.min(items.length, Math.floor(cam.z / SP) + 1));
     }
     const snaps = () => [0, ...items.map((_, i) => roomP(i + 1))].map((p) => M.hallway.top + p * (M.hallway.h - st.H));
