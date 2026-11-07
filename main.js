@@ -75,13 +75,16 @@
   if ("scrollRestoration" in history) history.scrollRestoration = "manual";
   if (!LOW && finePointer && !reduced) root.classList.add("hq");
 
+  // Stars twinkle in three groups rather than one by one: three layers to
+  // composite per field instead of a hundred and fifty, and the sky reads the same.
   function sprinkle(box, n, seed, sparkles = 0) {
     const r = rng(seed);
-    let html = "";
+    const groups = [[], [], []];
     for (let i = 0; i < n; i++) {
       const s = r() < 0.15 ? 3 : 2;
-      html += `<i style="left:${(r() * 100).toFixed(2)}%;top:${(r() * 100).toFixed(2)}%;width:${s}px;height:${s}px;--t:${(2 + r() * 4).toFixed(1)}s;--d:${(-r() * 5).toFixed(1)}s"></i>`;
+      groups[i % 3].push(`<i style="left:${(r() * 100).toFixed(2)}%;top:${(r() * 100).toFixed(2)}%;width:${s}px;height:${s}px;opacity:${(0.55 + r() * 0.45).toFixed(2)}"></i>`);
     }
+    let html = groups.map((g, k) => `<div class="tw tw${k}">${g.join("")}</div>`).join("");
     for (let i = 0; i < sparkles; i++) {
       const s = 8 + r() * 18;
       html += `<svg style="left:${(r() * 96).toFixed(1)}%;top:${(r() * 90).toFixed(1)}%;width:${s}px;height:${s}px;animation-delay:${(-r() * 3).toFixed(1)}s"><use href="#spark"/></svg>`;
@@ -521,7 +524,8 @@
       litDims = dims;
       centers = towers.map((t) => t.offsetLeft + t.offsetWidth / 2);
       D = Math.max(1, centers[centers.length - 1] - centers[0]);
-      M.work.el.style.height = `${Math.round(D * 1.25 + H)}px`;
+      // touch: every project gets most of a screen of scroll, so a flick lands on one
+      M.work.el.style.height = `${Math.round(DWELL ? (towers.length - 1) * H * 0.82 + H : D * 1.25 + H)}px`;
     }
     // lit windows are only seen on the street, so they're built after the page opens
     let litDims = [];
@@ -537,7 +541,15 @@
         $(".t-lit", towers[i]).innerHTML = html;
       });
     }
-    const towerY = (i) => M.work.top + ((centers[i] - centers[0]) / D) * (M.work.h - st.H);
+    // On touch the street rests on each tower, then walks to the next one;
+    // with a mouse the wheel snapping does that job and the street glides.
+    const DWELL = !finePointer;
+    const towerY = (i) => M.work.top + (DWELL ? i / (towers.length - 1) : (centers[i] - centers[0]) / D) * (M.work.h - st.H);
+    function streetX(p) {
+      if (!DWELL) return centers[0] + p * D;
+      const u = p * (towers.length - 1), k = Math.min(towers.length - 2, Math.floor(u));
+      return centers[k] + (centers[k + 1] - centers[k]) * smooth(0.28, 0.72, u - k);
+    }
     function show(i) {
       if (i === cur) return;
       if (cur >= 0) towers[cur].classList.remove("is-active");
@@ -565,11 +577,11 @@
       const i = towers.indexOf(e.target.closest(".tower"));
       if (i >= 0 && i !== cur) scroller.to(towerY(i));
     });
-    let lastY = 0, stillSince = 0;
+    let lastX = 0, stillSince = 0;
     function tick(now) {
       const { p, visible } = pin("work");
-      if (!visible) { lastY = st.sy; return; }
-      const tx = (-(centers[0] - W / 2) - p * D).toFixed(1);
+      if (!visible) return;
+      const tx = (W / 2 - streetX(p)).toFixed(1);
       setVar(track, "--tx", `${tx}px`);
       setVar(stage, "--tx", `${tx}px`);
       setVar(stage, "--tx-far", `${(tx * 0.22).toFixed(1)}px`);
@@ -583,9 +595,10 @@
       let best = 0, bd = Infinity;
       centers.forEach((c, i) => { const d = Math.abs(c + +tx - W / 2); if (d < bd) { bd = d; best = i; } });
       show(best);
-      const dy = st.sy - lastY;
-      lastY = st.sy;
-      if (Math.abs(dy) > 0.4) { stillSince = now; walker.classList.toggle("flip", dy < 0); }
+      // the walker only walks while the street actually moves
+      const dx = lastX - tx;
+      lastX = +tx;
+      if (Math.abs(dx) > 0.3) { stillSince = now; walker.classList.toggle("flip", dx < 0); }
       walker.classList.toggle("walking", !reduced && now - stillSince < 160);
     }
     return { layout, lightWindows, tick, snaps: () => towers.map((_, i) => towerY(i)) };
@@ -922,6 +935,11 @@
         if (top === "city" && y > M.city.top + (M.city.h - st.H) * 0.7) c = "#05061a";
         if (top === "sky" && y + st.H >= root.scrollHeight - 4) c = "#0a1466";
         if (c !== theme) { theme = c; themeMeta.setAttribute("content", c); }
+        // pause the animations of sections that are off screen (with a screen of margin)
+        for (const k of IDS) {
+          const m = M[k], off = y > m.top + m.h + st.H || y + 2 * st.H < m.top;
+          if (off !== !!m.off) { m.off = off; m.el.classList.toggle("off", off); }
+        }
         if (id === on) return;
         on = id;
         items.forEach((li) => li.classList.toggle("on", li.dataset.for === id));

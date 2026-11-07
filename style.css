@@ -158,8 +158,13 @@ html[data-tone="dark"] .rail::before { background: rgba(10, 20, 102, .35); }
 
 .city-stars i, .orbit-stars i, .sky-stars i {
   position: absolute; width: 2px; height: 2px; background: var(--snow); border-radius: 50%;
-  animation: twinkle var(--t, 3s) ease-in-out infinite; animation-delay: var(--d, 0s);
 }
+.tw { position: absolute; inset: 0; animation: twinkle-g 3.4s ease-in-out infinite; }
+.tw1 { animation-duration: 4.6s; animation-delay: -1.5s; }
+.tw2 { animation-duration: 5.9s; animation-delay: -3.1s; }
+@keyframes twinkle-g { 0%, 100% { opacity: 1; } 50% { opacity: .3; } }
+/* nothing animates in a section you cannot see */
+[data-section].off *, [data-section].off *::before, [data-section].off *::after { animation-play-state: paused !important; }
 @keyframes twinkle { 0%, 100% { opacity: .9; } 50% { opacity: .2; } }
 
 /* ───────────────────────── 01 CITY ───────────────────────── */
@@ -518,6 +523,9 @@ html[data-tone="dark"] .rail::before { background: rgba(10, 20, 102, .35); }
   .hud-title { font-size: 34px; }
   .hud-stack { font-size: 11px; }
   .sky-head { font-size: 32px; }
+  /* shorter flight and no near-black strip between orbit and the street */
+  .city { height: 255vh; }
+  .reentry { height: 24vh; background: linear-gradient(var(--void) 0%, #0d1660 40%, var(--deep) 75%, var(--cobalt) 100%); }
 }
 
 @media (prefers-reduced-motion: reduce) {
