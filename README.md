@@ -16,6 +16,8 @@ node tools/agent-files.mjs
 
 GitHub Pages redeploys automatically. When a change should reach returning visitors at once, bump the `?v=` numbers in `index.html`.
 
+Visitor analytics use GoatCounter. Sign in at https://anshul.goatcounter.com/ to view traffic. The asynchronous tracking script is in `index.html`.
+
 | File | What it holds |
 | --- | --- |
 | `index.html` | Page structure, plus two generated blocks (metadata and structured data; a plain-HTML profile) |
