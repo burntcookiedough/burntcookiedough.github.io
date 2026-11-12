@@ -927,14 +927,27 @@
       { label: "EMAIL", href: "mailto:" + SITE.email, hover: "WRITE" },
       { label: "GITHUB", href: SITE.github, ext: true, hover: "BROWSE" },
       { label: "LINKEDIN", href: SITE.linkedin, ext: true, hover: "CONNECT" },
+      { label: "ASK MY AI", href: PROFILE.mcp.repo, ext: true, hover: "MCP" },
     ];
     $("[data-signs]").innerHTML = signs.map((s, i) => {
-      const y = 426 + i * 62;
+      const y = 410 + i * 57;
       return `<a class="sign" href="${s.href}"${s.ext ? ' target="_blank" rel="noopener"' : ""} data-hover="${s.hover}" aria-label="${s.label}">
         <g class="sign-plate"><rect x="132" y="${y}" width="174" height="48" rx="3"/>
         <text x="148" y="${y + 31}">${s.label}</text>
         <path d="M262 ${y + 19} h16 v-7 l13 12 l-13 12 v-7 h-16z"/></g></a>`;
     }).join("");
+
+    // "Ask your AI about me": one click copies the MCP install command
+    const mcpBtn = $("[data-mcp-copy]");
+    if (mcpBtn) {
+      $("[data-mcp-cmd]").textContent = PROFILE.mcp.add.replace(/^\$ /, "");
+      const state = $("[data-mcp-state]");
+      mcpBtn.addEventListener("click", async () => {
+        try { await navigator.clipboard.writeText(PROFILE.mcp.add); state.textContent = "Copied"; }
+        catch { getSelection().selectAllChildren($("[data-mcp-cmd]")); state.textContent = "Selected"; }
+        clearTimeout(mcpBtn._t); mcpBtn._t = setTimeout(() => (state.textContent = "Copy"), 1800);
+      });
+    }
 
     const bar = [
       { cls: "seg-hatch", w: 24, k: "2025", v: "2nd, IEEE CS hackathon" },

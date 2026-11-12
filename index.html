@@ -34,7 +34,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wdth,wght@0,62..125,100..900;1,62..125,100..900&family=Big+Shoulders+Display:wght@600;800;900&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="style.css?v=13" />
+  <link rel="stylesheet" href="style.css?v=14" />
   <noscript><style>.loader { display: none; } html.loading { overflow: auto; }</style></noscript>
   <script>
     // never trap anyone behind the loader if a script fails
@@ -276,6 +276,14 @@
             <div><dt>LinkedIn</dt><dd><a data-linkedin target="_blank" rel="noopener" data-hover="CONNECT">anshul-panigrahi22</a></dd></div>
             <div><dt>GitHub</dt><dd><a data-github target="_blank" rel="noopener" data-hover="BROWSE">burntcookiedough</a></dd></div>
           </dl>
+          <div class="sky-mcp">
+            <p class="sky-mcp-k">Ask your AI about me</p>
+            <button type="button" class="sky-mcp-cmd" data-mcp-copy data-hover="COPY" aria-label="Copy the command that adds my MCP server">
+              <code><span aria-hidden="true">$ </span><span data-mcp-cmd>claude mcp add anshul -- npx -y github:burntcookiedough/anshul-portfolio-mcp</span></code>
+              <i data-mcp-state>Copy</i>
+            </button>
+            <p class="sky-mcp-note">An MCP server with my projects, patents and contact as tools, for Claude Code, Claude Desktop, Cursor and other agents. <a href="https://github.com/burntcookiedough/anshul-portfolio-mcp" target="_blank" rel="noopener" data-hover="SOURCE">Source</a></p>
+          </div>
           <div class="sky-bar" data-skybar></div>
         </div>
 
@@ -377,7 +385,7 @@
   </article>
   <!-- /agent:body -->
 
-  <script src="projects.js?v=13"></script>
-  <script src="main.js?v=13"></script>
+  <script src="projects.js?v=14"></script>
+  <script src="main.js?v=14"></script>
 </body>
 </html>
