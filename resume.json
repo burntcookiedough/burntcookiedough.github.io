@@ -256,7 +256,7 @@
       "keywords": [
         "YARA",
         "scikit-learn",
-        "FastAPI"
+        "Flask"
       ],
       "url": "https://github.com/burntcookiedough/SecureTorrent"
     }

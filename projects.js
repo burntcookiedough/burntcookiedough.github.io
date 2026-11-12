@@ -121,7 +121,7 @@ window.PROJECTS = [
     blurb:
       "Malware-aware torrent security: YARA rules, a hybrid ML detector, qBittorrent integration and an API test suite.",
     why: "Signatures catch the known threats and the model covers the rest.",
-    stack: ["YARA", "scikit-learn", "FastAPI"],
+    stack: ["YARA", "scikit-learn", "Flask"],
     stat: "hybrid",
     links: [{ label: "Repo", href: "https://github.com/burntcookiedough/SecureTorrent" }],
     height: 0.6,

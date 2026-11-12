@@ -87,7 +87,7 @@ Why it matters: Calibrated confidence and a fallback path, built into the produc
 - ML pipeline: https://github.com/burntcookiedough/veridose-Ml
 
 ### SecureTorrent
-security / ml · YARA, scikit-learn, FastAPI
+security / ml · YARA, scikit-learn, Flask
 
 Malware-aware torrent security: YARA rules, a hybrid ML detector, qBittorrent integration and an API test suite.
 
