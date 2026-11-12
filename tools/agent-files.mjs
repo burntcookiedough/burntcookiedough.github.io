@@ -101,7 +101,7 @@ const resume = {
 write("resume.json", JSON.stringify(resume, null, 2) + "\n");
 
 // ─────────── sitemap.xml + robots.txt ───────────
-const urls = [URL, abs("profile.md"), abs("llms.txt"), abs("resume.json"), ...patents.map((p) => abs(p.pdf))];
+const urls = [URL, ...patents.map((p) => abs(p.dir + "/")), abs("profile.md"), abs("llms.txt"), abs("resume.json"), ...patents.map((p) => abs(p.pdf))];
 write("sitemap.xml", `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 ${urls.map((u) => `  <url><loc>${u}</loc><lastmod>${today}</lastmod></url>`).join("\n")}
@@ -197,6 +197,88 @@ const body = `
     <ul>${Object.entries(P.skills).map(([k, v]) => li(esc(`${k}: ${v.join(", ")}`))).join("")}</ul>
   </article>
   `;
+
+// ─────────── patents/NN/index.html: one readable, shareable page per patent ───────────
+// (the link LinkedIn and others preview; og.jpg comes from tools/patent-cards.py)
+for (const [n, p] of patents.entries()) {
+  const url = abs(p.dir + "/");
+  const pages = Array.from({ length: p.pages }, (_, i) => `p${String(i + 1).padStart(2, "0")}.webp`);
+  const ld = {
+    "@context": "https://schema.org", "@type": "CreativeWork", additionalType: "https://www.wikidata.org/wiki/Q253623",
+    name: p.title, identifier: p.number, abstract: p.plain, datePublished: isoDate(p.published), url, encoding: { "@type": "MediaObject", contentUrl: abs(p.pdf), encodingFormat: "application/pdf" },
+    publisher: { "@type": "GovernmentOrganization", name: p.office },
+    author: p.inventors.map((x) => (x === NAME ? { "@id": URL + "#person", "@type": "Person", name: NAME, url: URL } : { "@type": "Person", name: x })),
+  };
+  const title = `${p.number}: ${p.title}`;
+  write(`${p.dir}/index.html`, `<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>${esc(title)} | ${NAME}</title>
+  <meta name="description" content="${esc(p.plain)}" />
+  <link rel="canonical" href="${url}" />
+  <meta name="theme-color" content="#1d36d6" />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="${url}" />
+  <meta property="og:site_name" content="${NAME}" />
+  <meta property="og:title" content="Patent ${esc(p.number)} | ${esc(p.short)}" />
+  <meta property="og:description" content="${esc(p.plain)}" />
+  <meta property="og:image" content="${abs(p.dir + "/og.jpg")}" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=Big+Shoulders+Display:wght@800;900&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
+  <script type="application/ld+json">${JSON.stringify(ld).replace(/</g, "\\u003c")}</script>
+  <style>
+    :root { --cobalt: #1d36d6; --navy: #0e164a; --cream: #efe4cc; --paper: #faf6ec; --pale: #e9ebf6; }
+    * { box-sizing: border-box; margin: 0; }
+    body { background: var(--pale); color: var(--navy); font: 16px/1.6 Archivo, system-ui, sans-serif; }
+    a { color: var(--cobalt); }
+    header { background: var(--cobalt); color: var(--cream); padding: 18px 20px; }
+    header a { color: var(--cream); font-weight: 700; text-decoration: none; letter-spacing: .01em; }
+    main { max-width: 860px; margin: 0 auto; padding: 48px 20px 80px; }
+    .k { font: 600 12px/1.4 "JetBrains Mono", monospace; letter-spacing: .12em; text-transform: uppercase; color: var(--cobalt); }
+    h1 { margin-top: 14px; font: 900 clamp(34px, 6vw, 60px)/.95 "Big Shoulders Display", sans-serif; text-transform: uppercase; color: var(--cobalt); text-wrap: balance; }
+    .plain { margin-top: 20px; font-size: 19px; max-width: 640px; }
+    ul.facts { margin-top: 18px; padding: 0; list-style: none; border-top: 1.5px solid var(--navy); }
+    ul.facts li { padding: 10px 0; border-bottom: 1px solid rgba(14, 22, 74, .2); font-weight: 600; }
+    dl { display: grid; grid-template-columns: 120px 1fr; gap: 6px 18px; margin-top: 26px; font-size: 14px; }
+    dt { font: 600 11px/1.9 "JetBrains Mono", monospace; letter-spacing: .1em; text-transform: uppercase; opacity: .7; }
+    .cta { display: inline-block; margin-top: 28px; padding: 12px 18px; background: var(--cobalt); color: var(--cream); font-weight: 700; text-decoration: none; border-radius: 4px; }
+    .pages { margin-top: 48px; display: grid; gap: 22px; }
+    .pages img { width: 100%; height: auto; display: block; background: var(--paper); box-shadow: 0 1px 0 rgba(14, 22, 74, .2), 6px 6px 0 rgba(29, 54, 214, .14); }
+    footer { margin-top: 48px; font-size: 14px; }
+    @media (max-width: 560px) { dl { grid-template-columns: 1fr; gap: 0 0; } dd { margin-bottom: 10px; } }
+  </style>
+</head>
+<body>
+  <header><a href="../../">&#8592; ${NAME}</a></header>
+  <main>
+    <p class="k">Published patent application ${n + 1} of ${patents.length} · Journal ${esc(p.journal)}</p>
+    <h1>${esc(p.title)}</h1>
+    <p class="plain">${esc(p.plain)}</p>
+    <ul class="facts">${p.facts.map((f) => `<li>${esc(f)}</li>`).join("")}</ul>
+    <dl>
+      <dt>Number</dt><dd>${esc(p.number)}</dd>
+      <dt>Filed</dt><dd>${esc(p.filed)}</dd>
+      <dt>Published</dt><dd>${esc(p.published)}, journal ${esc(p.journal)}</dd>
+      <dt>Office</dt><dd>${esc(p.office)}</dd>
+      <dt>Applicant</dt><dd>${esc(p.applicant)}</dd>
+      <dt>Inventors</dt><dd>${p.inventors.map((x) => (x === NAME ? `<strong>${esc(x)}</strong>` : esc(x))).join(", ")}</dd>
+    </dl>
+    <a class="cta" href="${esc(p.pdf.split("/").pop())}">Open the official PDF (${p.pages} pages)</a>
+    <section class="pages" aria-label="The publication, page by page">
+      ${pages.map((f, i) => `<img src="${f}" alt="Page ${i + 1} of ${p.pages}" width="1100" loading="${i ? "lazy" : "eager"}" decoding="async" />`).join("\n      ")}
+    </section>
+    <footer>${NAME} · <a href="../../">Portfolio</a> · <a href="${SITE.linkedin}">LinkedIn</a> · <a href="mailto:${SITE.email}">${SITE.email}</a></footer>
+  </main>
+</body>
+</html>
+`);
+}
 
 let html = read("index.html");
 const put = (name, content) => {
