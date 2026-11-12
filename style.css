@@ -680,3 +680,12 @@ html.low .dossier-veil { -webkit-backdrop-filter: none; backdrop-filter: none; b
 @media (hover: none) {
   .docs .sheet { transform: translate(var(--fx), 0) rotate(var(--fr)); }
 }
+
+/* ───────────────────────── PLAIN PROFILE (no JavaScript) ───────────────────────── */
+/* main.js removes this on load; it only shows to crawlers and readers without scripts */
+.plain-profile { position: relative; z-index: 1; max-width: 760px; margin: 0 auto; padding: 64px 20px 96px; background: var(--pale); color: var(--navy); font-size: 16px; line-height: 1.6; }
+.plain-profile h2 { font-family: var(--f-display); font-size: 40px; line-height: 1; text-transform: uppercase; color: var(--cobalt); }
+.plain-profile h3 { margin-top: 40px; font-family: var(--f-wide); font-size: 20px; }
+.plain-profile h4 { margin-top: 18px; font-size: 16px; }
+.plain-profile p, .plain-profile ul { margin-top: 8px; }
+.plain-profile a { color: var(--cobalt); }

@@ -138,6 +138,50 @@ window.SIGNALS = [
 
 window.CREDENTIALS = ["IBM Agentic AI", "NVIDIA DLI Deep Learning", "Oracle OCI AI Foundations"];
 
+// The plain-text profile that search engines, AI agents and recruiter tools read
+// (llms.txt, profile.md, resume.json, structured data). Not shown in the scenes.
+// After editing anything in this file, run: node tools/agent-files.mjs
+window.PROFILE = {
+  url: "https://burntcookiedough.github.io/",
+  title: "Anshul Panigrahi | AI Engineer, LLM products and agents",
+  headline: "AI engineer building LLM products and tool-using agents",
+  summary:
+    "Information Technology undergraduate at VIT who ships AI products end to end: on-device speech, LLM analytics that still work without the model, multi-agent support systems with human approval gates. Co-inventor on three published Indian patent applications. Looking for AI engineering internships with product teams shipping LLM features, agents and tool use.",
+  location: "Vellore, India",
+  seeking: "AI engineering internships: LLM features, agents and tool use, and the systems that keep them reliable",
+  education: [
+    { school: "Vellore Institute of Technology", place: "Vellore, India", degree: "B.Tech in Information Technology", start: "2023", end: "2027 (expected)", note: "CGPA 8.74/10" },
+  ],
+  experience: [
+    {
+      org: "Brandworks Technologies Private Limited",
+      role: "AI/ML Intern",
+      start: "2026-05",
+      end: "2026-07",
+      points: [
+        "Engineered a nine-stage data-quality pipeline for 26,419 images across 8 fruit classes: label normalization, perceptual-hash leakage checks, annotation filtering and training-set balancing.",
+        "Trained YOLOv8s for 120 epochs; 80.4% precision and 66.2% mAP@50 on 4,728 holdout images; diagnosed domain-shift failures on a separate 155-image synthetic webcam stress set.",
+      ],
+    },
+  ],
+  skills: {
+    Languages: ["Python", "C++", "SQL", "TypeScript"],
+    "Applied AI": ["Context engineering", "Prompt engineering", "Structured outputs", "LLM APIs", "Ollama"],
+    "Agent tooling": ["Claude Code", "Codex", "OpenCode", "Hermes Agent", "LangGraph"],
+    "Machine learning": ["PyTorch", "YOLO", "OpenCV", "Faster-Whisper", "CUDA"],
+    "Backend and delivery": ["FastAPI", "DuckDB", "SQLite", "Docker", "GitHub Actions", "Pytest"],
+  },
+  achievements: [
+    { what: "2nd place, IEEE CS Hackathon", when: "2025-09", note: "Co-developed SpineGuard in a 5-member team" },
+    { what: "Finalist, Yantra Central Hackathon", when: "2025-02", note: "Fingerprint spoofing detection" },
+  ],
+  certifications: [
+    { name: "Building Agents with Agentic AI", by: "IBM Career Education", when: "2026-07" },
+    { name: "Getting Started with Deep Learning", by: "NVIDIA Deep Learning Institute", when: "2026-03" },
+    { name: "Oracle Cloud Infrastructure 2025 Certified AI Foundations Associate", by: "Oracle", when: "2026-03" },
+  ],
+};
+
 // Patent filings shown as a paper stack in the hallway. A filing without `pages`
 // shows as a blank sheet until its document is added (run the render script, set pages).
 window.PATENTS = [

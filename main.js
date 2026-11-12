@@ -28,6 +28,8 @@
   // weaker devices get a lighter render path; the look stays the same
   const LOW = (navigator.hardwareConcurrency || 8) <= 4 || (navigator.deviceMemory || 8) <= 4;
   document.documentElement.classList.toggle("low", LOW);
+  // the plain-text profile is for crawlers and no-JS readers; the scenes carry it from here
+  document.getElementById("plain-profile")?.remove();
   const DPR = Math.min(devicePixelRatio || 1, LOW ? 1 : finePointer ? 1.5 : 1.25);
   const TAU = Math.PI * 2;
   const SVGNS = "http://www.w3.org/2000/svg";

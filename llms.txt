@@ -1,0 +1,34 @@
+# Anshul Panigrahi
+
+> AI engineer building LLM products and tool-using agents. Co-inventor on 3 published patent applications. B.Tech in Information Technology, Vellore Institute of Technology, graduating 2027 (expected). Open to AI engineering internships: LLM features, agents and tool use, and the systems that keep them reliable.
+
+The website is an interactive canvas experience; the files below carry the same content as text.
+
+## Profile
+
+- [Full profile](https://burntcookiedough.github.io/profile.md): experience, projects, patents, skills, education in one Markdown file
+- [Resume (PDF)](https://drive.google.com/file/d/19As7v83n54BxIKbTP4S1Tt3fajsoTIfs/view?usp=sharing): one-page resume
+- [resume.json](https://burntcookiedough.github.io/resume.json): the same resume in JSON Resume format
+- [Email](mailto:anshulpanigrahi3678@gmail.com): anshulpanigrahi3678@gmail.com
+- [GitHub](https://github.com/burntcookiedough) · [LinkedIn](https://linkedin.com/in/anshul-panigrahi22)
+
+## Projects
+
+- [Eve — Windows Dictation](https://github.com/burntcookiedough/eve-windows-dictation): Hold a hotkey, speak, and your words land wherever you were typing. A shipped desktop app with offline speech recognition, a live overlay, searchable history and CPU/GPU fallback.
+- [Customer Support Agents](https://github.com/burntcookiedough/abc-customer-support-langgraph): A LangGraph system that classifies tickets, routes them to specialist agents, retrieves from a RAG store, remembers customers in SQLite and gates risky actions behind human approval.
+- [Stella — Health Analytics](https://github.com/burntcookiedough/Stella): Health analytics over wearable exports: FastAPI, React + Vite, DuckDB, and an Ollama-backed LLM layer for chat and reports that degrades cleanly to metrics-only.
+- [Cognitive Load-Aware Scheduler](https://github.com/burntcookiedough/Cognitive-Load-Aware-Distributed-Task-Scheduler): Routes work using both machine state and a live Cognitive Load Score from typing variance, idle time and context switches, with flow-state protection and a baseline comparison.
+- [Real-Time Predictive Maintenance](https://burntcookiedough.github.io/profile.md): Kafka, Spark, Cassandra, PyTorch and graph analytics across 5,000 simulated machines: streaming anomaly detection plus cascade-failure analysis and constrained mitigation.
+- [Physically-Bounded Mode Discovery](https://github.com/burntcookiedough/Physical-Bounded-Multimodal-Mode-Discovery): HDBSCAN proposes operating regimes on NASA CMAPSS and CWRU while physics constraints reject implausible clusters.
+- [Veri-Dose](https://github.com/burntcookiedough/Veridose): Medication verification with a quantized MobileNetV2 that knows when it's unsure: low-confidence predictions go to a human instead of pretending certainty.
+- [SecureTorrent](https://github.com/burntcookiedough/SecureTorrent): Malware-aware torrent security: YARA rules, a hybrid ML detector, qBittorrent integration and an API test suite.
+
+## Patents
+
+- [IN202641027860 A1: Medication dispenser with on-device user authentication and medication verification](https://burntcookiedough.github.io/patents/01/IN202641027860A1.pdf): A pill dispenser that recognises the patient's face, releases only their dose, then checks the pill with an on-device classifier before it is taken. Nothing leaves the device.
+- [IN202641088096 A1: Cognitive load-aware distributed task scheduling using hardware-bound processing control and predictive task migration](https://burntcookiedough.github.io/patents/02/IN202641088096A1.pdf): A scheduler that reads how hard you are concentrating from keyboard, mouse and app-switching patterns, then holds back, slows or moves disruptive work to other machines until you surface.
+- [IN202641067209 A1: Zero-trust physical enclave security using continuous biometric entropy and RF-based perimeter monitoring](https://burntcookiedough.github.io/patents/03/IN202641067209A1.pdf): A workstation that stays unlocked only while a live pulse is present and no unknown radio is nearby. Lose either, and the session keys are destroyed on the spot.
+
+## Optional
+
+- [Website](https://burntcookiedough.github.io/): the portfolio itself (best viewed in a browser)
