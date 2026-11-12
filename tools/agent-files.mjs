@@ -28,7 +28,7 @@ const allSkills = Object.values(P.skills).flat();
 // ─────────── profile.md: the whole portfolio as one readable document ───────────
 const md = [];
 md.push(`# ${NAME}`, "", `${P.headline}. ${P.location}.`, "", P.summary, "");
-md.push(`- Website: ${URL}`, `- Resume (PDF): ${SITE.resume}`, `- Email: ${SITE.email}`, `- GitHub: ${SITE.github}`, `- LinkedIn: ${SITE.linkedin}`, `- Looking for: ${P.seeking}`, "");
+md.push(`- Website: ${URL}`, `- MCP server (ask your AI assistant about me): ${P.mcp.repo}`, `- Resume (PDF): ${SITE.resume}`, `- Email: ${SITE.email}`, `- GitHub: ${SITE.github}`, `- LinkedIn: ${SITE.linkedin}`, `- Looking for: ${P.seeking}`, "");
 md.push("## Experience", "");
 for (const e of P.experience) {
   md.push(`### ${e.role}, ${e.org}`, `${month(e.start)} to ${month(e.end)}`, "");
@@ -68,7 +68,8 @@ lt.push(`- [Full profile](${abs("profile.md")}): experience, projects, patents, 
 lt.push(`- [Resume (PDF)](${SITE.resume}): one-page resume`);
 lt.push(`- [resume.json](${abs("resume.json")}): the same resume in JSON Resume format`);
 lt.push(`- [Email](mailto:${SITE.email}): ${SITE.email}`);
-lt.push(`- [GitHub](${SITE.github}) · [LinkedIn](${SITE.linkedin})`, "");
+lt.push(`- [GitHub](${SITE.github}) · [LinkedIn](${SITE.linkedin})`);
+lt.push(`- [MCP server](${P.mcp.repo}): the same profile as live tools for any MCP client. Add it with: \`${P.mcp.add}\``, "");
 lt.push("## Projects", "");
 for (const p of projects) lt.push(`- [${p.full}](${p.repo || abs("profile.md")}): ${p.blurb}`);
 lt.push("", "## Patents", "");

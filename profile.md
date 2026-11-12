@@ -5,6 +5,7 @@ AI engineer building LLM products and tool-using agents. Vellore, India.
 Information Technology undergraduate at VIT who ships AI products end to end: on-device speech, LLM analytics that still work without the model, multi-agent support systems with human approval gates. Co-inventor on three published Indian patent applications. Looking for AI engineering internships with product teams shipping LLM features, agents and tool use.
 
 - Website: https://burntcookiedough.github.io/
+- MCP server (ask your AI assistant about me): https://github.com/burntcookiedough/anshul-portfolio-mcp
 - Resume (PDF): https://drive.google.com/file/d/19As7v83n54BxIKbTP4S1Tt3fajsoTIfs/view?usp=sharing
 - Email: anshulpanigrahi3678@gmail.com
 - GitHub: https://github.com/burntcookiedough

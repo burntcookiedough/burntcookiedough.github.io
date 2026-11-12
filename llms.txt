@@ -11,6 +11,7 @@ The website is an interactive canvas experience; the files below carry the same 
 - [resume.json](https://burntcookiedough.github.io/resume.json): the same resume in JSON Resume format
 - [Email](mailto:anshulpanigrahi3678@gmail.com): anshulpanigrahi3678@gmail.com
 - [GitHub](https://github.com/burntcookiedough) · [LinkedIn](https://linkedin.com/in/anshul-panigrahi22)
+- [MCP server](https://github.com/burntcookiedough/anshul-portfolio-mcp): the same profile as live tools for any MCP client. Add it with: `claude mcp add anshul -- npx -y github:burntcookiedough/anshul-portfolio-mcp`
 
 ## Projects
 
