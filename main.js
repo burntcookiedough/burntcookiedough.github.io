@@ -937,7 +937,7 @@
     }).join("");
 
     const bar = [
-      { cls: "seg-hatch", w: 24, k: "2025", v: "IEEE CS hackathon win" },
+      { cls: "seg-hatch", w: 24, k: "2025", v: "2nd, IEEE CS hackathon" },
       { cls: "seg-grey", w: 26, k: "Patents", v: "3 published" },
       { cls: "seg-white", w: 28, k: "Now", v: SITE.nowBuilding },
       { cls: "seg-open", w: 22, k: "Next", v: "Your team?" },

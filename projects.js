@@ -131,7 +131,7 @@ window.PROJECTS = [
 
 window.SIGNALS = [
   { big: "03", label: "Published patents", docs: true, sub: "Medication verification · cognitive-load scheduling · zero-trust enclave" },
-  { big: "WIN", label: "IEEE CS Hackathon 2025", sub: "Also a Yantra Central Hackathon finalist" },
+  { big: "2ND", label: "IEEE CS Hackathon 2025", sub: "Second place with SpineGuard. Also a Yantra Central Hackathon finalist" },
   { big: "26,419", label: "Images · Brandworks", sub: "AI/ML intern: built a 9-stage data pipeline and trained YOLOv8s across 8 categories" },
   { big: "11★", label: "Stars on Eve", sub: "A shipped desktop AI product, released and maintained in the open" },
 ];
