@@ -24,6 +24,10 @@ The website is an interactive canvas experience; the files below carry the same 
 - [Veri-Dose](https://github.com/burntcookiedough/Veridose): Medication verification with a quantized MobileNetV2 that knows when it's unsure: low-confidence predictions go to a human instead of pretending certainty.
 - [SecureTorrent](https://github.com/burntcookiedough/SecureTorrent): Malware-aware torrent security: YARA rules, a hybrid ML detector, qBittorrent integration and an API test suite.
 
+## Open source
+
+- [Merged: repowise-dev/repowise#5399](https://github.com/repowise-dev/repowise/pull/5399): fix(update): read stored health data from a configured database. With the database configured through REPOWISE_DB_URL, four incremental loaders still checked for a repo-local .repowise/wiki.db that is absent by design, so every incremental update read no stored git metadata, callers or coverage. Gated them on the configured store instead; one regression test per loader fails on main and passes with the fix, and the 738 tests touching these loaders still pass. Fixes issue #2406.
+
 ## Patents
 
 - [IN202641027860 A1: Medication dispenser with on-device user authentication and medication verification](https://burntcookiedough.github.io/patents/01/IN202641027860A1.pdf): A pill dispenser that recognises the patient's face, releases only their dose, then checks the pill with an on-device classifier before it is taken. Nothing leaves the device.

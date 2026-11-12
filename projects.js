@@ -131,6 +131,7 @@ window.PROJECTS = [
 
 window.SIGNALS = [
   { big: "03", label: "Published patents", docs: true, sub: "Medication verification · cognitive-load scheduling · zero-trust enclave" },
+  { big: "MERGED", label: "Open source · Repowise, 8.1k★", sub: "Fixed incremental updates that silently read no stored data under a configured database, with regression tests" },
   { big: "2ND", label: "IEEE CS Hackathon 2025", sub: "Second place with SpineGuard. Also a Yantra Central Hackathon finalist" },
   { big: "26,419", label: "Images · Brandworks", sub: "AI/ML intern: built a 9-stage data pipeline and trained YOLOv8s across 8 categories" },
   { big: "11★", label: "Stars on Eve", sub: "A shipped desktop AI product, released and maintained in the open" },
@@ -173,6 +174,16 @@ window.PROFILE = {
     "Machine learning": ["PyTorch", "YOLO", "OpenCV", "Faster-Whisper", "CUDA"],
     "Backend and delivery": ["FastAPI", "DuckDB", "SQLite", "Docker", "GitHub Actions", "Pytest"],
   },
+  openSource: [
+    {
+      repo: "repowise-dev/repowise",
+      about: "codebase intelligence for AI agents and humans over MCP, 8.1k stars",
+      title: "fix(update): read stored health data from a configured database",
+      url: "https://github.com/repowise-dev/repowise/pull/5399",
+      merged: "2026-11-12",
+      summary: "With the database configured through REPOWISE_DB_URL, four incremental loaders still checked for a repo-local .repowise/wiki.db that is absent by design, so every incremental update read no stored git metadata, callers or coverage. Gated them on the configured store instead; one regression test per loader fails on main and passes with the fix, and the 738 tests touching these loaders still pass. Fixes issue #2406.",
+    },
+  ],
   achievements: [
     { what: "2nd place, IEEE CS Hackathon", when: "2025-09", note: "Co-developed SpineGuard in a 5-member team" },
     { what: "Finalist, Yantra Central Hackathon", when: "2025-02", note: "Fingerprint spoofing detection" },

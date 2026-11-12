@@ -389,7 +389,7 @@ html[data-tone="dark"] .rail::before { background: rgba(10, 20, 102, .35); }
 .hud-links span { font-weight: 500; opacity: .7; }
 
 /* ───────────────────────── 04 HALLWAY ───────────────────────── */
-.hallway { position: relative; height: 520vh; background: #e9ebf6; }
+.hallway { position: relative; height: 600vh; background: #e9ebf6; }
 .hall-stage { position: sticky; top: 0; height: calc(100 * var(--vh)); overflow: hidden; background: #e9ebf6; }
 .hall-canvas { position: absolute; inset: -40px; width: calc(100% + 80px); height: calc(100% + 80px); }
 .hall-haze {

@@ -20,6 +20,10 @@ May 2026 to Jul 2026
 - Engineered a nine-stage data-quality pipeline for 26,419 images across 8 fruit classes: label normalization, perceptual-hash leakage checks, annotation filtering and training-set balancing.
 - Trained YOLOv8s for 120 epochs; 80.4% precision and 66.2% mAP@50 on 4,728 holdout images; diagnosed domain-shift failures on a separate 155-image synthetic webcam stress set.
 
+## Open source
+
+- Merged PR to repowise-dev/repowise (codebase intelligence for AI agents and humans over MCP, 8.1k stars), 2026-11-12: fix(update): read stored health data from a configured database. With the database configured through REPOWISE_DB_URL, four incremental loaders still checked for a repo-local .repowise/wiki.db that is absent by design, so every incremental update read no stored git metadata, callers or coverage. Gated them on the configured store instead; one regression test per loader fails on main and passes with the fix, and the 738 tests touching these loaders still pass. Fixes issue #2406. https://github.com/repowise-dev/repowise/pull/5399
+
 ## Projects
 
 ### Eve — Windows Dictation

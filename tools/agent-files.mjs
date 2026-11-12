@@ -35,7 +35,9 @@ for (const e of P.experience) {
   e.points.forEach((x) => md.push(`- ${x}`));
   md.push("");
 }
-md.push("## Projects", "");
+md.push("## Open source", "");
+for (const o of P.openSource) md.push(`- Merged PR to ${o.repo} (${o.about}), ${o.merged}: ${o.title}. ${o.summary} ${o.url}`);
+md.push("", "## Projects", "");
 for (const p of projects) {
   md.push(`### ${p.full}`, `${p.track.toLowerCase()} · ${p.stack.join(", ")}`, "", p.blurb, "", `Why it matters: ${p.why}`);
   if (p.links.length) md.push("", ...p.links.map((l) => `- ${l.label}: ${l.href}`));
@@ -72,6 +74,8 @@ lt.push(`- [GitHub](${SITE.github}) · [LinkedIn](${SITE.linkedin})`);
 lt.push(`- [MCP server](${P.mcp.repo}): the same profile as live tools for any MCP client. Add it with: \`${P.mcp.add}\``, "");
 lt.push("## Projects", "");
 for (const p of projects) lt.push(`- [${p.full}](${p.repo || abs("profile.md")}): ${p.blurb}`);
+lt.push("", "## Open source", "");
+for (const o of P.openSource) lt.push(`- [Merged: ${o.repo}#${o.url.split("/").pop()}](${o.url}): ${o.title}. ${o.summary}`);
 lt.push("", "## Patents", "");
 for (const p of patents) lt.push(`- [${p.number}: ${p.title}](${abs(p.pdf)}): ${p.plain}`);
 lt.push("", "## Optional", "");
@@ -95,7 +99,7 @@ const resume = {
   certificates: P.certifications.map((c) => ({ name: c.name, issuer: c.by, date: c.when })),
   publications: patents.map((p) => ({ name: `${p.title} (${p.number})`, publisher: p.office, releaseDate: isoDate(p.published), url: abs(p.pdf), summary: p.plain })),
   skills: Object.entries(P.skills).map(([name, keywords]) => ({ name, keywords })),
-  projects: projects.map((p) => ({ name: p.full, description: p.blurb, highlights: [p.why], keywords: p.stack, url: p.repo })),
+  projects: [...P.openSource.map((o) => ({ name: `Open source: ${o.repo}`, description: `Merged pull request: ${o.title}`, highlights: [o.summary], keywords: ["Open source", "Python", "Testing"], url: o.url, endDate: o.merged })), ...projects.map((p) => ({ name: p.full, description: p.blurb, highlights: [p.why], keywords: p.stack, url: p.repo }))],
   meta: { canonical: abs("resume.json"), lastModified: today },
 };
 write("resume.json", JSON.stringify(resume, null, 2) + "\n");
@@ -181,6 +185,8 @@ const body = `
     <h3>Experience</h3>
     ${P.experience.map((e) => `<h4>${esc(e.role)}, ${esc(e.org)} (${month(e.start)} to ${month(e.end)})</h4>
     <ul>${e.points.map((x) => li(esc(x))).join("")}</ul>`).join("\n    ")}
+    <h3>Open source</h3>
+    <ul>${P.openSource.map((o) => li(`${a(o.url, `Merged: ${o.repo}`)} (${esc(o.about)}): ${esc(o.title)}. ${esc(o.summary)}`)).join("")}</ul>
     <h3>Projects</h3>
     ${projects.map((p) => `<section>
       <h4>${esc(p.full)}</h4>

@@ -626,7 +626,7 @@
       ...SIG.map((s) => ({ big: s.big, label: s.label, sub: s.sub, docs: !!s.docs })),
       { big: String(CRED.length).padStart(2, "0"), label: "Certifications", sub: CRED.join(" · ") },
     ];
-    const intro = { big: "Keep walking.", label: "", sub: "Patents, a hackathon, an internship and a shipped product, one room at a time." };
+    const intro = { big: "Keep walking.", label: "", sub: "Patents, open source, a hackathon, an internship and a shipped product, one room at a time." };
     R.steps.innerHTML = items.map(() => "<li></li>").join("");
     const stepEls = [...R.steps.children];
 

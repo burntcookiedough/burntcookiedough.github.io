@@ -34,7 +34,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wdth,wght@0,62..125,100..900;1,62..125,100..900&family=Big+Shoulders+Display:wght@600;800;900&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="style.css?v=14" />
+  <link rel="stylesheet" href="style.css?v=15" />
   <noscript><style>.loader { display: none; } html.loading { overflow: auto; }</style></noscript>
   <script>
     // never trap anyone behind the loader if a script fails
@@ -333,6 +333,8 @@
     <h3>Experience</h3>
     <h4>AI/ML Intern, Brandworks Technologies Private Limited (May 2026 to Jul 2026)</h4>
     <ul><li>Engineered a nine-stage data-quality pipeline for 26,419 images across 8 fruit classes: label normalization, perceptual-hash leakage checks, annotation filtering and training-set balancing.</li><li>Trained YOLOv8s for 120 epochs; 80.4% precision and 66.2% mAP@50 on 4,728 holdout images; diagnosed domain-shift failures on a separate 155-image synthetic webcam stress set.</li></ul>
+    <h3>Open source</h3>
+    <ul><li><a href="https://github.com/repowise-dev/repowise/pull/5399">Merged: repowise-dev/repowise</a> (codebase intelligence for AI agents and humans over MCP, 8.1k stars): fix(update): read stored health data from a configured database. With the database configured through REPOWISE_DB_URL, four incremental loaders still checked for a repo-local .repowise/wiki.db that is absent by design, so every incremental update read no stored git metadata, callers or coverage. Gated them on the configured store instead; one regression test per loader fails on main and passes with the fix, and the 738 tests touching these loaders still pass. Fixes issue #2406.</li></ul>
     <h3>Projects</h3>
     <section>
       <h4>Eve — Windows Dictation</h4>
@@ -385,7 +387,7 @@
   </article>
   <!-- /agent:body -->
 
-  <script src="projects.js?v=14"></script>
-  <script src="main.js?v=14"></script>
+  <script src="projects.js?v=15"></script>
+  <script src="main.js?v=15"></script>
 </body>
 </html>
