@@ -17,6 +17,9 @@ const { SITE, PROJECTS, PATENTS, PROFILE: P } = window;
 const URL = P.url;
 const NAME = "Anshul Panigrahi";
 const today = new Date().toISOString().slice(0, 10);
+// Google's ProfilePage wants full ISO 8601 date-times with a timezone, not bare dates
+const now = new Date().toISOString().slice(0, 19) + "Z";
+const CREATED = "2026-11-06T16:53:35+05:30"; // first commit of the site
 const abs = (p) => new globalThis.URL(p, URL).href;
 const esc = (s) => String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
 const isoDate = (d) => d.split(".").reverse().join("-"); // 20.03.2026 -> 2026-03-20
@@ -126,7 +129,7 @@ Sitemap: ${abs("sitemap.xml")}
 // ─────────── index.html: head metadata + JSON-LD ───────────
 const person = { "@id": URL + "#person" };
 const graph = [
-  { "@type": "ProfilePage", "@id": URL + "#page", url: URL, name: P.title, dateModified: today, mainEntity: person },
+  { "@type": "ProfilePage", "@id": URL + "#page", url: URL, name: P.title, dateCreated: CREATED, dateModified: now, mainEntity: person },
   {
     "@type": "Person", ...person, name: NAME, url: URL, image: abs("og.jpg"), jobTitle: "AI Engineer",
     description: P.summary, email: `mailto:${SITE.email}`, sameAs: [SITE.github, SITE.linkedin],
