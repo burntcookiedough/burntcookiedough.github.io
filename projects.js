@@ -150,7 +150,7 @@ window.PROFILE = {
     "Information Technology undergraduate at VIT who ships AI products end to end: on-device speech, LLM analytics that still work without the model, multi-agent support systems with human approval gates. Co-inventor on three published Indian patent applications. Looking for AI engineering internships with product teams shipping LLM features, agents and tool use.",
   location: "Vellore, India",
   // an MCP server any AI assistant can add to ask about this profile
-  mcp: { repo: "https://github.com/burntcookiedough/anshul-portfolio-mcp", add: "claude mcp add anshul -- npx -y github:burntcookiedough/anshul-portfolio-mcp" },
+  mcp: { repo: "https://github.com/burntcookiedough/anshul-portfolio-mcp", add: "claude mcp add anshul -- npx -y anshul-portfolio-mcp" },
   seeking: "AI engineering internships: LLM features, agents and tool use, and the systems that keep them reliable",
   education: [
     { school: "Vellore Institute of Technology", place: "Vellore, India", degree: "B.Tech in Information Technology", start: "2023", end: "2027 (expected)", note: "CGPA 8.74/10" },
