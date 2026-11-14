@@ -6,7 +6,7 @@
 window.SITE = {
   name: ["ANSHUL", "PANIGRAHI"],
   role: "AI engineer building LLM products and tool-using agents.",
-  resume: "https://drive.google.com/file/d/19As7v83n54BxIKbTP4S1Tt3fajsoTIfs/view?usp=sharing",
+  resume: "https://drive.google.com/file/d/1iVJAJnojFs2xtPHplfOZ0s6a-u1Kz-KO/view?usp=sharing",
   email: "anshulpanigrahi3678@gmail.com",
   linkedin: "https://linkedin.com/in/anshul-panigrahi22",
   github: "https://github.com/burntcookiedough",
